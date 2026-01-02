@@ -1,0 +1,44 @@
+[basic]
+root_dir = "/home/adduser/Shenji/MIMII"
+device_type = ["fan","pump","valve","slider"]
+sample_rate = 16000
+train_ratio = 0.7
+val_ratio = 0.2
+test_ratio = 0.1
+cross_validation = false
+cv_folds = 5
+
+[preprocess]
+audio_duration = 10.0
+normalization = "min-max"
+remove_silence = true
+silence_threshold = 0.01
+augmentation = true
+augment_methods = ["noise","time_shift","pitch_shift"]
+noise_strength = 0.05
+time_shift_step = 2
+time_stretch_rate = 1.1
+
+[feature]
+feature_type = "mel_spectrogram"
+mel_spectrogram = {n_fft = 1024,hop_length = 512,n_mels = 64}
+feature_normalize = true
+long_scale = true
+
+[loader]
+epochs = 10
+batch_size = 32
+lr = 0.001
+lr_scheduler = "cosine"
+step_size = 30
+gamma = 0.1
+weight_decay = 1e-5
+early_stopping = true
+patience = 20
+save_dir = "/home/adduser/Shenji/MIMII/ckpt"
+log_dir = "/home/adduser/Shenji/MIMII/logs"
+[testing]
+metrics = ["auc_roc"]
+result_dir = "/home/adduser/Shenji/MIMII/results"
+plot_curves = true
+
